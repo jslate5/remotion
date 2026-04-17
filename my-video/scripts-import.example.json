@@ -1,0 +1,45 @@
+{
+  "clipsDir": "/Volumes/YourDrive/short-form-clips",
+  "entries": [
+    {
+      "filename": "hook_001.mp4",
+      "bucket": "hook",
+      "script_line": "Most people think they need more discipline. They don't."
+    },
+    {
+      "filename": "hook_002.mp4",
+      "bucket": "hook",
+      "script_line": "I built this in a weekend and it saves me six hours a week."
+    },
+    {
+      "filename": "problem_001.mp4",
+      "bucket": "problem",
+      "script_line": "Every short-form creator I know spends more time editing than filming."
+    },
+    {
+      "filename": "problem_002.mp4",
+      "bucket": "problem",
+      "script_line": "You can batch-film for an hour and still run out of content in three days."
+    },
+    {
+      "filename": "solution_001.mp4",
+      "bucket": "solution",
+      "script_line": "So I pre-edit every clip once, then a tool re-assembles them into dozens of variations."
+    },
+    {
+      "filename": "solution_002.mp4",
+      "bucket": "solution",
+      "script_line": "One afternoon of filming becomes weeks of posts, because an LLM picks the clip order for me."
+    },
+    {
+      "filename": "cta_001.mp4",
+      "bucket": "cta",
+      "script_line": "If this sounds useful, follow for more — I'm open-sourcing the whole pipeline."
+    },
+    {
+      "filename": "cta_002.mp4",
+      "bucket": "cta",
+      "script_line": "Link in bio if you want to try it yourself."
+    }
+  ]
+}

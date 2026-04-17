@@ -1,0 +1,13 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Ignore the output video from Git but not videos you import into src/.
+out
+
+# SQLite database for the clip stitcher CLI
+data/
+
+# Symlink to external clip directory (recreated on `npm run ingest`)
+public/clips

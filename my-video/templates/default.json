@@ -1,0 +1,4 @@
+{
+  "name": "default",
+  "buckets": ["hook", "problem", "solution", "cta"]
+}

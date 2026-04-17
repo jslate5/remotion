@@ -1,0 +1,65 @@
+{
+  "clipsDir": "/Users/joemacmini/Downloads",
+  "entries": [
+    {
+      "filename": "hook_test_001.mov",
+      "bucket": "hook",
+      "script_line": "Test hook 1"
+    },
+    {
+      "filename": "hook_test_002.mov",
+      "bucket": "hook",
+      "script_line": "Test hook 2"
+    },
+    {
+      "filename": "hook_test_003.mov",
+      "bucket": "hook",
+      "script_line": "Test hook 1"
+    },
+    {
+      "filename": "problem_test_001.mov",
+      "bucket": "problem",
+      "script_line": "Test problem 1"
+    },
+    {
+      "filename": "problem_test_002.mov",
+      "bucket": "problem",
+      "script_line": "Test problem 2"
+    },
+    {
+      "filename": "problem_test_003.mov",
+      "bucket": "problem",
+      "script_line": "Test problem 3"
+    },
+    {
+      "filename": "solution_test_001.mov",
+      "bucket": "solution",
+      "script_line": "Test solution 1"
+    },
+    {
+      "filename": "solution_test_002.mov",
+      "bucket": "solution",
+      "script_line": "Test solution 2"
+    },
+    {
+      "filename": "solution_test_003.mov",
+      "bucket": "solution",
+      "script_line": "Test solution 3"
+    },
+    {
+      "filename": "cta_test_001.mov",
+      "bucket": "cta",
+      "script_line": "Test cta 1"
+    },
+    {
+      "filename": "cta_test_002.mov",
+      "bucket": "cta",
+      "script_line": "Test cta 2"
+    },
+    {
+      "filename": "cta_test_003.mov",
+      "bucket": "cta",
+      "script_line": "Test solution 3"
+    }
+  ]
+}

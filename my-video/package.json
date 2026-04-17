@@ -1,0 +1,48 @@
+{
+  "name": "my-video",
+  "version": "1.0.0",
+  "description": "My Remotion video",
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@remotion/bundler": "^4.0.448",
+    "@remotion/cli": "4.0.448",
+    "@remotion/media": "^4.0.448",
+    "@remotion/renderer": "^4.0.448",
+    "@remotion/tailwind-v4": "4.0.448",
+    "@remotion/zod-types": "4.0.448",
+    "better-sqlite3": "^12.9.0",
+    "dotenv": "^17.4.2",
+    "openai": "^6.34.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.448",
+    "tailwindcss": "4.0.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.448",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.6.0",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.19.0",
+    "prettier": "3.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "preview": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "ingest": "tsx scripts/ingest.ts",
+    "plan": "tsx scripts/plan.ts",
+    "render": "tsx scripts/render.ts"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["remotion.config.ts"]
+}

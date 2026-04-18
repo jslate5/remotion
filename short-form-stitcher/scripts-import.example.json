@@ -4,7 +4,8 @@
     {
       "filename": "hook_001.mp4",
       "bucket": "hook",
-      "script_line": "Most people think they need more discipline. They don't."
+      "script_line": "Most people think they need more discipline. They don't.",
+      "tags": "discipline, contrarian"
     },
     {
       "filename": "hook_002.mp4",
@@ -34,7 +35,8 @@
     {
       "filename": "cta_001.mp4",
       "bucket": "cta",
-      "script_line": "If this sounds useful, follow for more — I'm open-sourcing the whole pipeline."
+      "script_line": "If this sounds useful, follow for more — I'm open-sourcing the whole pipeline.",
+      "tags": "follow, open source, cta"
     },
     {
       "filename": "cta_002.mp4",

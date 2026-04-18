@@ -24,6 +24,7 @@ export const getDb = (): Database.Database => {
       rel_path        TEXT NOT NULL,
       abs_path        TEXT NOT NULL,
       script_line     TEXT NOT NULL,
+      tags            TEXT NOT NULL DEFAULT '',
       duration_frames INTEGER NOT NULL,
       imported_at     TEXT NOT NULL DEFAULT (datetime('now'))
     );
@@ -54,6 +55,15 @@ export const getDb = (): Database.Database => {
     CREATE INDEX IF NOT EXISTS idx_plans_template ON plans(template_id);
   `);
 
+  const clipColumns = db
+    .prepare(`PRAGMA table_info(clips)`)
+    .all() as { name: string }[];
+  if (!clipColumns.some((c) => c.name === "tags")) {
+    db.exec(
+      `ALTER TABLE clips ADD COLUMN tags TEXT NOT NULL DEFAULT ''`,
+    );
+  }
+
   dbSingleton = db;
   return db;
 };
@@ -65,6 +75,7 @@ export type ClipRow = {
   rel_path: string;
   abs_path: string;
   script_line: string;
+  tags: string;
   duration_frames: number;
   imported_at: string;
 };
@@ -92,14 +103,15 @@ export const upsertClip = (
   clip: Omit<ClipRow, "imported_at">,
 ): void => {
   db.prepare(
-    `INSERT INTO clips (id, bucket, filename, rel_path, abs_path, script_line, duration_frames)
-     VALUES (@id, @bucket, @filename, @rel_path, @abs_path, @script_line, @duration_frames)
+    `INSERT INTO clips (id, bucket, filename, rel_path, abs_path, script_line, tags, duration_frames)
+     VALUES (@id, @bucket, @filename, @rel_path, @abs_path, @script_line, @tags, @duration_frames)
      ON CONFLICT(id) DO UPDATE SET
        bucket          = excluded.bucket,
        filename        = excluded.filename,
        rel_path        = excluded.rel_path,
        abs_path        = excluded.abs_path,
        script_line     = excluded.script_line,
+       tags            = excluded.tags,
        duration_frames = excluded.duration_frames`,
   ).run(clip);
 };

@@ -62,14 +62,18 @@ const loadTemplateFromDisk = (
 
 const buildCatalog = (
   buckets: string[],
-): Record<string, { id: string; script_line: string }[]> => {
+): Record<string, { id: string; script_line: string; tags: string }[]> => {
   const db = getDb();
-  const catalog: Record<string, { id: string; script_line: string }[]> = {};
+  const catalog: Record<
+    string,
+    { id: string; script_line: string; tags: string }[]
+  > = {};
   for (const bucket of buckets) {
     const clips = getClipsByBucket(db, bucket);
     catalog[bucket] = clips.map((c) => ({
       id: c.id,
       script_line: c.script_line,
+      tags: c.tags,
     }));
   }
   return catalog;
@@ -91,11 +95,12 @@ RULES:
 - Each plan's ordered list of clip ids (in template order) MUST be unique across all plans you return.
 - You MUST NOT produce a plan whose ordered clip-id sequence matches any entry in forbiddenHashes. forbiddenHashes are sha256 hashes of the joined clip-id sequence.
 - Pick clips whose script_line values flow logically into each other. Prefer narrative continuity between buckets.
+- When tags are present on a clip, use them as hints for tone and theme consistency across the selected sequence (e.g. matching or complementary tags between buckets).
 - Do not include explanations, comments, or any text outside the JSON object.`;
 
 const buildUserPrompt = (args: {
   template: string[];
-  catalog: Record<string, { id: string; script_line: string }[]>;
+  catalog: Record<string, { id: string; script_line: string; tags: string }[]>;
   forbiddenHashes: string[];
   count: number;
   previouslyReturnedHashes: string[];

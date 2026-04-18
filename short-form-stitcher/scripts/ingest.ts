@@ -25,6 +25,10 @@ const ImportFileSchema = z.object({
         filename: z.string(),
         bucket: z.string(),
         script_line: z.string(),
+        tags: z
+          .string()
+          .optional()
+          .transform((s) => (s === undefined ? "" : s.trim())),
       }),
     )
     .min(1),
@@ -160,6 +164,7 @@ const main = async (): Promise<void> => {
       rel_path: `${PUBLIC_CLIPS_DIRNAME}/${entry.filename}`,
       abs_path: absPath,
       script_line: entry.script_line,
+      tags: entry.tags,
       duration_frames: durationInFrames,
     });
 

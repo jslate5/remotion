@@ -62,7 +62,7 @@ Re-running ingest is idempotent: existing clips are updated, new ones are insert
 
 ### `npm run plan -- <template-name> --count <N>`
 
-Generates `N` deduplicated clip-ordering plans. For the `default` template (`hook -> problem -> solution -> cta`):
+Generates `N` deduplicated clip-ordering plans. For the `default` template, bucket order is defined in [`templates/default.json`](./templates/default.json):
 
 ```bash
 npm run plan -- default --count 5

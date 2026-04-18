@@ -1,4 +1,14 @@
 {
   "name": "default",
-  "buckets": ["hook", "problem", "solution", "cta"]
+  "buckets": [
+    "hook_premise",
+    "contrast_expansion",
+    "pivot_line",
+    "stakes_consequence",
+    "diagnosis_why_nothing_happens",
+    "founder_product_turn",
+    "product_one_liner",
+    "ease_outcome_benefit",
+    "cta"
+  ]
 }

@@ -4,7 +4,7 @@ A CLI tool, built on top of Remotion, that stitches pre-edited short-form clips 
 
 The workflow has two stages:
 
-1. **Outside this tool**: a custom GPT produces a JSON file of script lines. You film and edit each line as a clip (overlays/b-roll already baked in) and save them to an external drive using a convention like `hook_001.mp4`, `cta_003.mp4`.
+1. **Outside this tool**: a custom GPT produces a JSON file of script lines (and optional comma-separated **tags** per clip for tone/theme hints). You film and edit each line as a clip (overlays/b-roll already baked in) and save them to an external drive using a convention like `hook_001.mp4`, `cta_003.mp4`.
 2. **This tool**: ingest the JSON into SQLite, ask an LLM to assemble N unique orderings of clips per template, and render each ordering to an MP4 with Remotion.
 
 ## One-time setup
@@ -40,17 +40,29 @@ Imports clip metadata from the JSON your custom GPT produced. See [`scripts-impo
 {
   "clipsDir": "/Volumes/YourDrive/short-form-clips",
   "entries": [
-    { "filename": "hook_001.mp4", "bucket": "hook", "script_line": "..." },
-    { "filename": "cta_001.mp4",  "bucket": "cta",  "script_line": "..." }
+    {
+      "filename": "hook_001.mp4",
+      "bucket": "hook",
+      "script_line": "...",
+      "tags": "discipline, contrarian"
+    },
+    {
+      "filename": "cta_001.mp4",
+      "bucket": "cta",
+      "script_line": "...",
+      "tags": "waitlist, cta"
+    }
   ]
 }
 ```
+
+`tags` is optional. Omit it or use an empty string for clips with no labels; values are stored as plain text (often comma-separated words, as your GPT prefers).
 
 For each entry, ingest:
 
 - Verifies the file exists on the drive.
 - Probes its duration (via `@remotion/renderer`’s `getVideoMetadata`, which uses Remotion’s bundled ffprobe).
-- Upserts a row in SQLite keyed by `sha256(bucket + filename)`.
+- Upserts a row in SQLite keyed by `sha256(bucket + filename)`, including `script_line` and `tags`.
 
 Re-running ingest is idempotent: existing clips are updated, new ones are inserted.
 
@@ -64,7 +76,7 @@ npm run plan -- default --count 5
 
 Under the hood:
 
-1. Loads clips grouped by bucket, plus the last 200 hashes already rendered.
+1. Loads clips grouped by bucket (each clip exposes `id`, `script_line`, and `tags`), plus the last 200 hashes already rendered.
 2. Sends an LLM (OpenAI by default) a JSON prompt with the catalog and `forbiddenHashes`.
 3. Validates each returned plan, SHA-256 hashes the clip-id sequence, rejects duplicates, retries up to 3 rounds.
 4. Writes accepted plans to SQLite with status `pending`.
@@ -94,7 +106,7 @@ Opens Remotion Studio so you can scrub a plan visually. Edit the `ShortForm` com
 
 SQLite lives at `data/clips.db` (gitignored). Three tables:
 
-- `clips` — one row per ingested clip.
+- `clips` — one row per ingested clip (`filename`, `bucket`, `script_line`, `tags`, paths, duration, etc.).
 - `templates` — named ordered lists of buckets.
 - `plans` — each an ordered list of clip ids with a unique `hash` so we never render the same combination twice.
 

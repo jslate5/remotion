@@ -7,6 +7,12 @@ The workflow has two stages:
 1. **Outside this tool**: a custom GPT produces a JSON file of script lines (and optional comma-separated **tags** per clip for tone/theme hints). You film and edit each line as a clip (overlays/b-roll already baked in) and save them to an external drive using a convention like `hook_001.mp4`, `cta_003.mp4`.
 2. **This tool**: ingest the JSON into SQLite, ask an LLM to assemble N unique orderings of clips per template, and render each ordering to an MP4 with Remotion.
 
+## Repository context
+
+This folder is a **complete Remotion package** that lives inside the [main Remotion repository](https://github.com/remotion-dev/remotion). After you clone that repo, `short-form-stitcher/` is already on disk—you **do not** run `create-video` or scaffold a project named `short-form-stitcher`; that flow is only for starting a brand-new Remotion app in an empty directory.
+
+For Node installation, core concepts (compositions, Studio, rendering), and the full manual, see the [Remotion documentation](https://www.remotion.dev/docs).
+
 ## One-time setup
 
 ```bash
@@ -17,18 +23,6 @@ cp .env.example .env
 ```
 
 The external drive is linked into `public/clips/` automatically by `npm run ingest` (it reads the `clipsDir` field in your import JSON). If the drive isn't mounted when you run ingest or render, the command fails fast with a clear message.
-
-### Why `npm run … -- …`?
-
-The **`--`** is required by **npm**, not by this project. Everything after `--` is forwarded to the underlying command (`tsx scripts/render.ts`, etc.). Without it, flags that start with `-` (like `--all-pending` or `--count`) can be mistaken for **npm’s own** options instead of your script’s.
-
-**Alternatives** (no double-dash):
-
-```bash
-npx tsx scripts/render.ts --all-pending
-npx tsx scripts/plan.ts default --count 5
-npx tsx scripts/ingest.ts ./test-import.json
-```
 
 ## The three commands
 

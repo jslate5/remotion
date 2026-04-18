@@ -14,10 +14,10 @@ Use this skills whenever you are dealing with Remotion code to obtain the domain
 When in an empty folder or workspace with no existing Remotion project, scaffold one using:
 
 ```bash
-npx create-video@latest --yes --blank --no-tailwind my-video
+npx create-video@latest --yes --blank --no-tailwind short-form-stitcher
 ```
 
-Replace `my-video` with a suitable project name.
+Replace `short-form-stitcher` with a suitable project name when bootstrapping elsewhere.
 
 ## Starting preview
 

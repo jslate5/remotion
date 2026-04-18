@@ -10,7 +10,7 @@ The workflow has two stages:
 ## One-time setup
 
 ```bash
-cd my-video
+cd short-form-stitcher
 npm install
 cp .env.example .env
 # Fill in OPENAI_API_KEY (or switch LLM_PROVIDER)
@@ -101,7 +101,7 @@ SQLite lives at `data/clips.db` (gitignored). Three tables:
 ## Project layout
 
 ```
-my-video/
+short-form-stitcher/
 ├── src/ShortForm/        # Remotion composition (stitches clips back-to-back)
 ├── scripts/              # CLI tool (ingest / plan / render)
 │   ├── db.ts             # SQLite schema + queries

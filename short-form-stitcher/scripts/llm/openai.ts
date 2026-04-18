@@ -5,7 +5,7 @@ export const createOpenAIProvider = (): LlmProvider => {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error(
-      "OPENAI_API_KEY is not set. Add it to my-video/.env (see .env.example).",
+      "OPENAI_API_KEY is not set. Add it to .env in the project root (see .env.example).",
     );
   }
 

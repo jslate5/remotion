@@ -39,8 +39,10 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
     "ingest": "tsx scripts/ingest.ts",
+    "ingest:all-clio": "tsx scripts/ingest-all-clio.ts",
     "plan": "tsx scripts/plan.ts",
-    "render": "tsx scripts/render.ts"
+    "render": "tsx scripts/render.ts",
+    "db:wipe": "tsx scripts/wipe-db.ts"
   },
   "sideEffects": [
     "*.css"

@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { config as loadEnv } from "dotenv";
 import { bundle } from "@remotion/bundler";
@@ -62,6 +63,9 @@ const buildProps = (plan: PlanRow): ShortFormProps => {
       );
     }
     return {
+      // Use a plain relative path so `staticFile()` can resolve it.
+      // We provide a custom publicDir when bundling to make this work even if
+      // clips live in many different folders on disk.
       src: row.rel_path,
       durationInFrames: row.duration_frames,
     };
@@ -115,6 +119,40 @@ const renderPlan = async (
   return outputLocation;
 };
 
+const preparePublicDirForPlans = (
+  plans: PlanRow[],
+): { publicDir: string; cleanup: () => void } => {
+  const clipIds = new Set<string>();
+  for (const plan of plans) {
+    const ids = JSON.parse(plan.clip_ids_json) as string[];
+    for (const id of ids) clipIds.add(id);
+  }
+
+  const db = getDb();
+  const rows = getClipsByIds(db, [...clipIds]);
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "sfs-public-"));
+  const clipsDir = path.join(tmp, "clips");
+  fs.mkdirSync(clipsDir, { recursive: true });
+
+  for (const row of rows) {
+    const dest = path.join(clipsDir, row.filename);
+    if (fs.existsSync(dest)) continue;
+    // The renderer's built-in HTTP server rejects symlinks, so we must copy.
+    fs.copyFileSync(row.abs_path, dest);
+  }
+
+  return {
+    publicDir: tmp,
+    cleanup: () => {
+      try {
+        fs.rmSync(tmp, { recursive: true, force: true });
+      } catch {
+        // ignore
+      }
+    },
+  };
+};
+
 const main = async (): Promise<void> => {
   const args = parseArgs();
   const db = getDb();
@@ -133,27 +171,34 @@ const main = async (): Promise<void> => {
     plans = [plan];
   }
 
+  const { publicDir, cleanup } = preparePublicDirForPlans(plans);
+
   console.log("Bundling Remotion project...");
   const entryPoint = path.resolve(__dirname, "..", "src", "index.ts");
   const serveUrl = await bundle({
     entryPoint,
+    publicDir,
     webpackOverride: (config) => config,
   });
   console.log(`  serveUrl=${serveUrl}`);
 
   let ok = 0;
   let failed = 0;
-  for (const plan of plans) {
-    console.log(`\nRendering ${plan.id} (hash ${plan.hash.slice(0, 10)})`);
-    try {
-      const outputLocation = await renderPlan(plan, serveUrl);
-      markPlanRendered(db, plan.id, outputLocation);
-      ok++;
-    } catch (err) {
-      console.error(`  [fail] ${(err as Error).message}`);
-      markPlanFailed(db, plan.id);
-      failed++;
+  try {
+    for (const plan of plans) {
+      console.log(`\nRendering ${plan.id} (hash ${plan.hash.slice(0, 10)})`);
+      try {
+        const outputLocation = await renderPlan(plan, serveUrl);
+        markPlanRendered(db, plan.id, outputLocation);
+        ok++;
+      } catch (err) {
+        console.error(`  [fail] ${(err as Error).message}`);
+        markPlanFailed(db, plan.id);
+        failed++;
+      }
     }
+  } finally {
+    cleanup();
   }
 
   console.log(`\nDone. rendered=${ok} failed=${failed}`);

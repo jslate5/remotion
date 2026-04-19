@@ -43,7 +43,7 @@ const publicClipsDir = path.resolve(
 );
 
 const ensureClipsSymlink = (clipsDir: string): void => {
-  const resolvedTarget = path.resolve(clipsDir);
+  const resolvedTarget = path.normalize(path.resolve(clipsDir));
 
   if (!fs.existsSync(resolvedTarget)) {
     throw new Error(
@@ -53,27 +53,52 @@ const ensureClipsSymlink = (clipsDir: string): void => {
 
   fs.mkdirSync(path.dirname(publicClipsDir), { recursive: true });
 
-  if (fs.existsSync(publicClipsDir)) {
-    const stat = fs.lstatSync(publicClipsDir);
-    if (stat.isSymbolicLink()) {
-      const current = fs.readlinkSync(publicClipsDir);
-      if (path.resolve(current) === resolvedTarget) {
-        return;
-      }
-      console.log(
-        `Updating public/${PUBLIC_CLIPS_DIRNAME} symlink:\n  was -> ${current}\n  now -> ${resolvedTarget}`,
-      );
-      fs.unlinkSync(publicClipsDir);
-    } else {
-      throw new Error(
-        `public/${PUBLIC_CLIPS_DIRNAME} exists and is not a symlink. Remove or rename it and retry.`,
-      );
+  // Use lstat only: existsSync() follows symlinks and returns false when the
+  // target is missing, which would skip removal and cause EEXIST on symlinkSync.
+  let atPublic: fs.Stats | undefined;
+  try {
+    atPublic = fs.lstatSync(publicClipsDir);
+  } catch (e) {
+    if ((e as NodeJS.ErrnoException).code !== "ENOENT") {
+      throw e;
     }
   }
 
-  fs.symlinkSync(resolvedTarget, publicClipsDir, "dir");
-  console.log(
-    `Linked public/${PUBLIC_CLIPS_DIRNAME} -> ${resolvedTarget}`,
+  const readlinkAbsolute = (): string => {
+    const raw = fs.readlinkSync(publicClipsDir);
+    return path.normalize(
+      path.isAbsolute(raw)
+        ? raw
+        : path.resolve(path.dirname(publicClipsDir), raw),
+    );
+  };
+
+  if (!atPublic) {
+    fs.symlinkSync(resolvedTarget, publicClipsDir, "dir");
+    console.log(
+      `Linked public/${PUBLIC_CLIPS_DIRNAME} -> ${resolvedTarget}`,
+    );
+    return;
+  }
+
+  if (atPublic.isSymbolicLink()) {
+    const currentAbs = readlinkAbsolute();
+    if (currentAbs === resolvedTarget) {
+      return;
+    }
+    console.log(
+      `Updating public/${PUBLIC_CLIPS_DIRNAME} symlink:\n  was -> ${currentAbs}\n  now -> ${resolvedTarget}`,
+    );
+    fs.unlinkSync(publicClipsDir);
+    fs.symlinkSync(resolvedTarget, publicClipsDir, "dir");
+    console.log(
+      `Linked public/${PUBLIC_CLIPS_DIRNAME} -> ${resolvedTarget}`,
+    );
+    return;
+  }
+
+  throw new Error(
+    `public/${PUBLIC_CLIPS_DIRNAME} exists and is not a symlink. Remove or rename it and retry.`,
   );
 };
 
@@ -101,13 +126,7 @@ const ensureDefaultTemplate = () => {
   console.log(`Registered template "${raw.name}" (${raw.buckets.join(" -> ")})`);
 };
 
-const main = async (): Promise<void> => {
-  const jsonPath = process.argv[2];
-  assert(
-    jsonPath,
-    "Usage: npm run ingest -- <path-to-scripts.json>\n\nThe JSON should look like scripts-import.example.json.",
-  );
-
+export const ingestFromJsonFile = async (jsonPath: string): Promise<void> => {
   const absJsonPath = path.resolve(jsonPath);
   assert(fs.existsSync(absJsonPath), `File not found: ${absJsonPath}`);
 
@@ -121,7 +140,18 @@ const main = async (): Promise<void> => {
 
   const { clipsDir, entries } = parsed.data;
 
-  ensureClipsSymlink(clipsDir);
+  let resolvedClipsDir = path.normalize(path.resolve(clipsDir));
+  if (!fs.existsSync(resolvedClipsDir)) {
+    const fallback = path.dirname(absJsonPath);
+    if (fs.existsSync(fallback) && fs.statSync(fallback).isDirectory()) {
+      resolvedClipsDir = path.normalize(fallback);
+      console.log(
+        `clipsDir not found; using directory of import JSON:\n  ${resolvedClipsDir}`,
+      );
+    }
+  }
+
+  ensureClipsSymlink(resolvedClipsDir);
   ensureDefaultTemplate();
 
   const db = getDb();
@@ -131,7 +161,7 @@ const main = async (): Promise<void> => {
   let skipped = 0;
 
   for (const entry of entries) {
-    const absPath = path.join(path.resolve(clipsDir), entry.filename);
+    const absPath = path.join(resolvedClipsDir, entry.filename);
     if (!fs.existsSync(absPath)) {
       console.warn(`  [skip] missing file: ${absPath}`);
       skipped++;
@@ -186,7 +216,18 @@ const main = async (): Promise<void> => {
   );
 };
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+const main = async (): Promise<void> => {
+  const jsonPath = process.argv[2];
+  assert(
+    jsonPath,
+    "Usage: npm run ingest -- <path-to-scripts.json>\n\nThe JSON should look like scripts-import.example.json.",
+  );
+  await ingestFromJsonFile(jsonPath);
+};
+
+if (require.main === module) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

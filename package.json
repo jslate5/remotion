@@ -45,7 +45,8 @@
 		"cleantypes": "rm -rf packages/**/tsconfig.tsbuildinfo && rm -f packages/tsconfig.tsbuildinfo",
 		"clean": "turbo run clean && rm -rf packages/**/dist && rm -rf .cache && rm -rf packages/**/tsconfig.tsbuildinfo && rm -f packages/tsconfig.tsbuildinfo && rm -rf packages/**/.turbo && rm -rf .turbo",
 		"cleanall": "turbo run clean && rm -rf packages/**/dist && rm -rf packages/**/node_modules && rm -rf node_modules && rm -rf .cache && rm -rf packages/**/tsconfig.tsbuildinfo && rm -f packages/tsconfig.tsbuildinfo && rm -rf packages/**/.turbo && rm -rf .turbo",
-		"prepare": "git config core.hooksPath .githooks"
+		"prepare": "git config core.hooksPath .githooks",
+		"ingest:all-clio": "npm run ingest:all-clio --prefix short-form-stitcher"
 	},
 	"engines": {
 		"node": ">=16"

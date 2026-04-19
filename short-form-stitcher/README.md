@@ -77,6 +77,22 @@ Under the hood:
 
 Templates live in [`templates/`](./templates). Drop in `templates/<name>.json` with any ordered list of buckets and the tool will pick it up the first time you run `plan <name>`.
 
+### `npm run plan -- --autonomous --count <N>`
+
+Generates `N` deduplicated plans **without** a template: the LLM selects an ordered `clipIds[]` sequence directly from the full clip catalog.
+
+Constraints enforced:
+
+- Exactly 1 `hook_premise` clip, and it must be the first clip.
+- Exactly 1 `product_one_liner` clip, and it must appear before `cta`.
+- Exactly 1 `cta` clip.
+- No repeated clip ids within a plan.
+- Total duration under 60 seconds (using the `duration_frames` stored during ingest).
+
+```bash
+npm run plan -- --autonomous --count 5
+```
+
 ### `npm run render -- --all-pending`
 
 Or for a single plan:

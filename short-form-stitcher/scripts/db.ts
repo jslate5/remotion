@@ -140,6 +140,10 @@ export const getClipsByIds = (
     .all(...ids);
 };
 
+export const getAllClips = (db: Database.Database): ClipRow[] => {
+  return db.prepare<[], ClipRow>(`SELECT * FROM clips ORDER BY bucket, filename`).all();
+};
+
 export const upsertTemplate = (
   db: Database.Database,
   template: { id: string; name: string; buckets: string[] },
@@ -238,4 +242,14 @@ export const markPlanRendered = (
 
 export const markPlanFailed = (db: Database.Database, id: string): void => {
   db.prepare(`UPDATE plans SET status = 'failed' WHERE id = ?`).run(id);
+};
+
+/** Deletes every row from all tables (FK-safe order: plans → templates → clips). */
+export const wipeAllRecords = (db: Database.Database): void => {
+  const wipe = db.transaction(() => {
+    db.prepare(`DELETE FROM plans`).run();
+    db.prepare(`DELETE FROM templates`).run();
+    db.prepare(`DELETE FROM clips`).run();
+  });
+  wipe();
 };

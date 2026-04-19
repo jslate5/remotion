@@ -1,0 +1,199 @@
+CLIO VIDEO SCRIPT CORPUS
+
+This file contains multiple separate short-form video scripts combined into one reference document for an LLM.
+
+Each section below represents ONE distinct video. Do not treat the entire file as a single continuous script.
+
+
+
+================================================================================
+VIDEO 1 START
+Title: Clio 22 - Grandma Isn't Gonna Live Forever - Final
+Source File: Clio 22 - Grandma Isn't Gonna Live Forever - Final.srt
+Transcript:
+Grandma is not going to live forever, and neither is her wall of scrapbooks.
+Here's the part nobody likes to think about.
+One accident, one fire, one flood, and your entire family history is gone.
+Not damaged, gone.
+Most people don't scan their old photos, but it's not because they don't care.
+Because it's annoying.
+Flatbed scanners are slow.
+Professional services are expensive, so most photos just stay in boxes until something happens.
+That didn't sit right with us, so we're building something to fix it.
+A simple light-up box to help you save your memories forever.
+Just drop the photo in, and it saves straight to your phone.
+If you want to be one of the first people to test it out, the link is in my bio.
+VIDEO 1 END
+================================================================================
+
+================================================================================
+VIDEO 2 START
+Title: Clio 23 - Most People Dont - Final
+Source File: Clio 23 - Most People Dont - Final.srt
+Transcript:
+Most people don't lose their family history to a fire.
+They lose it to laziness, but not on purpose.
+Just little excuses.
+I'll do it later.
+I don't have time.
+It's probably fine.
+That's how those memories disappear forever.
+Not in one big moment, but slowly over time.
+In boxes, in basements, in closets, nobody opens.
+Here's the part nobody says out loud.
+You don't just lose memories when something burns,
+but also when nobody saves them.
+And saving them just got easier than you would think.
+Let me show you.
+A simple light up box to help you save your memories forever.
+Just drop the photo in and it saves straight to your phone.
+Click the link in my bio if you want to be one of the first people to give it a try.
+VIDEO 2 END
+================================================================================
+
+================================================================================
+VIDEO 3 START
+Title: Clio 24 - You Say You Care - Final
+Source File: Clio 24 - You Say You Care - Final.srt
+Transcript:
+You say that you care about your memories, but you're not acting like it.
+You take photos every day.
+You post them.
+You save them.
+You back up your phone.
+But what about the ones in the box?
+The ones in the basement?
+The ones in your parents' closet?
+Here's the part that sucks.
+You say they matter, but you haven't touched them in years.
+And it's not because they're not important, because it feels like a hassle.
+And that's how memories disappear.
+Not in a fire, not in a flood, but in a, I'll do it later.
+It doesn't have to be hard.
+Let me show you.
+A simple light up box to help you save your memories forever.
+Just drop the photo in and it saves straight to your phone.
+Click the link in my bio if you want to be one of the first people to give it a try.
+VIDEO 3 END
+================================================================================
+
+================================================================================
+VIDEO 4 START
+Title: Clio 25 - You Back Up Your Phone - Final
+Source File: Clio 25 - You Back Up Your Phone - Final.srt
+Transcript:
+You back up your phone, but not your childhood.
+You protect your contacts, your notes, your apps.
+You even pay for cloud storage.
+But what about the photos in the box?
+The ones at your parents' house, just sitting there.
+Here's the weird part.
+You think that they're safe, but they're not backed up.
+They're just lucky.
+Most people don't scan old photos.
+Not because they don't care, because it's annoying.
+Flatbed scanners are slow.
+Professional services are expensive, so nothing happens.
+That didn't sit right with us.
+Let me show you.
+A simple light-up box to help you save your memories forever.
+Just drop the photo in, and it saves straight to your phone.
+No cords, no weird setup, just your memories backed up forever.
+Click the link in my bio if you want to be one of the first people to give it a try.
+VIDEO 4 END
+================================================================================
+
+================================================================================
+VIDEO 5 START
+Title: Clio 26 - If Your House Flooded Tomorrow - Final
+Source File: Clio 26 - If Your House Flooded Tomorrow - Final.srt
+Transcript:
+If your house flooded tomorrow, how many of your family photos would survive?
+I'm not talking about the ones on your phone.
+I mean the printed ones, the ones in albums, the ones in boxes in the closet,
+the photos of your grandparents.
+Most of those memories are just sitting in cardboard.
+And cardboard doesn't survive water very well.
+Or fire.
+Or even a chaotic move.
+And once those photos are gone, there's no re-download button.
+That's why we're building Clio Photo.
+A fast and easy way to scan your memories directly to your camera roll.
+Because your family history shouldn't depend on a shoebox under the bed.
+Click the link in my bio to join the waitlist today.
+VIDEO 5 END
+================================================================================
+
+================================================================================
+VIDEO 6 START
+Title: Clio 27 - Facts or Cap - Final
+Source File: Clio 27 - Facts or Cap - Final.srt
+Transcript:
+Fax or cap?
+Printed photographs last forever.
+Cap?
+And pretending they do is exactly why they sit in boxes for decades.
+Fax or cap?
+The camera app on your phone is the best way to scan printed photos.
+Cap?
+Your camera's good, but your lighting probably isn't.
+Fax or cap?
+You need to spend $500 on an expensive scanner to do it the right way.
+Cap?
+That's why most people never even start.
+Now here's what's actually facts.
+People don't digitize photos because the process feels annoying, expensive, or just overwhelming.
+That's why we're building Clio Photo.
+No giant scanner needed, just an easy light-up box that lets you save your memories directly
+to your camera roll.
+No glare.
+No complicated setup.
+Just what you need to save your memories forever.
+If you have a shoebox of photos under your bed, click the link in my bio and join the waitlist
+today.
+VIDEO 6 END
+================================================================================
+
+================================================================================
+VIDEO 7 START
+Title: Clio 29 - We Are the First Generation - Final
+Source File: Clio 29 - We Are the First Generation - Final.srt
+Transcript:
+We are the first generation that might actually lose our printed photos.
+Our grandparents made photo albums.
+Our parents kept the boxes.
+But now, those boxes sit in closets while everything else moved into the cloud.
+And printed photos do not back themselves up.
+They fade over time.
+They get split up between siblings.
+Lost during moves.
+And if nobody takes responsibility for digitizing them, they slowly disappear.
+That's why we're building Clio Photo.
+A special light-up photo booth that lets your phone scan your pictures directly to your camera roll.
+If you want to make sure that your family's memories don't fade in the closet somewhere,
+check out the link in my bio and join the waitlist today.
+VIDEO 7 END
+================================================================================
+
+================================================================================
+VIDEO 8 START
+Title: Clio 30 - How Would You Feel
+Source File: Clio 30 - How Would You Feel.srt
+Transcript:
+How would you feel if you were the person that lost your entire family history?
+Every family has that one nostalgic box, right?
+All the photo albums from the 80s, all the loose pictures from the 90s,
+photos of people who aren't here anymore.
+And usually, nobody has digitized them.
+But it's not because you don't care, because it feels overwhelming.
+There's a ton of photos, and you think you need a big scanner and a whole afternoon,
+so it just keeps getting pushed back.
+That's why we're building Clio Photo,
+an easy light-up box that lets you save your memories directly to your camera roll.
+Fast and simple.
+So you can actually finish the most important project of all.
+Saving your family history so one day, maybe you can show your kids.
+Don't let this be the one thing that you meant to do.
+Check out the link in my bio to join the waitlist and be one of the first people to give it a try.
+VIDEO 8 END
+================================================================================

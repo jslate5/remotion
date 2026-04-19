@@ -89,7 +89,7 @@ Bundles the Remotion project once, then for each plan:
 
 - Resolves every clip's duration from the DB.
 - Calls `selectComposition` + `renderMedia` against the `ShortForm` composition.
-- Writes `out/<plan-id>.mp4`.
+- Writes `out/<plan-id>.mp4` (override with `SFS_OUT_DIR` in `.env`).
 - Flips the plan row to `rendered` (or `failed`).
 
 ### `npm run preview` (optional)

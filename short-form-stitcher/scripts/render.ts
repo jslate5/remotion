@@ -70,13 +70,24 @@ const buildProps = (plan: PlanRow): ShortFormProps => {
   return { clips };
 };
 
-const OUT_DIR = path.resolve(__dirname, "..", "out");
+const getOutDir = (): string => {
+  const configured = process.env.SFS_OUT_DIR?.trim();
+  if (!configured) {
+    return path.resolve(__dirname, "..", "out");
+  }
+
+  // Allow relative paths in .env (resolve relative to short-form-stitcher/).
+  return path.isAbsolute(configured)
+    ? configured
+    : path.resolve(__dirname, "..", configured);
+};
 
 const renderPlan = async (
   plan: PlanRow,
   serveUrl: string,
 ): Promise<string> => {
-  fs.mkdirSync(OUT_DIR, { recursive: true });
+  const outDir = getOutDir();
+  fs.mkdirSync(outDir, { recursive: true });
 
   const props = buildProps(plan);
 
@@ -86,7 +97,7 @@ const renderPlan = async (
     inputProps: props,
   });
 
-  const outputLocation = path.join(OUT_DIR, `${plan.id}.mp4`);
+  const outputLocation = path.join(outDir, `${plan.id}.mp4`);
 
   console.log(
     `  duration=${composition.durationInFrames}f  dims=${composition.width}x${composition.height}@${composition.fps}fps`,
